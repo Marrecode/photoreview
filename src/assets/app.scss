@@ -5,8 +5,23 @@
     background-color: #ccc;
     border-radius: 4px;
     border: 2px dashed #aaa;
+
+    &.drag-accept {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+
+    &.drag-reject {
+        background-color: #d4edda;
+        border-color: palevioletred;
+        color: red;
+    }
+
     p {
         margin-bottom: 2rem;
     }
+
+    
 }
 
