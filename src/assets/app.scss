@@ -1,1 +1,12 @@
 @import "~bootstrap/scss/bootstrap";
+
+
+#upload-image-wrapper {
+    background-color: #ccc;
+    border-radius: 4px;
+    border: 2px dashed #aaa;
+    p {
+        margin-bottom: 2rem;
+    }
+}
+
