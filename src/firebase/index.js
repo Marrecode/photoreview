@@ -5,13 +5,12 @@ import 'firebase/storage';
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDjIcQCw5l018JLtrnCLH0C38562Di9Kl8",
-    authDomain: "photo-review-c5d5f.firebaseapp.com",
-    projectId: "photo-review-c5d5f",
-    storageBucket: "photo-review-c5d5f.appspot.com",
-    messagingSenderId: "266574214700",
-    appId: "1:266574214700:web:8e217494982dda85f24389",
-    measurementId: "G-5KF3YY40LM"
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID
   };
 
   firebase.initializeApp(firebaseConfig);

@@ -15,15 +15,16 @@ const UploadImageDropzone = () => {
     useEffect(() => {
         if (error) {
             setMessage({
-                type: 'true',
+                error: true,
                 text: error,
-            })
+            });
         }
         else if (isSucess) {
             setMessage({
                 success: true,
                 text: 'Image was uploaded successfully',
             });
+
             setUploadFile(null);
         }
         else {
@@ -63,17 +64,15 @@ const UploadImageDropzone = () => {
                     <ul className="list-unstyled">
                     {acceptedFiles.map(file => (
                         <li key={file.name}>
-                        <img src={URL.createObjectURL(file)} className="img-fluid w-25" alt="preview" />
                         <small>{file.name} ({Math.round(file.size / 1024)} kb)</small></li>
                     ))}
                     </ul>
                 </div>
             )}
 
-                {
-                    uploadProgress !== null && (<ProgressBar variant="success" animated now={uploadProgress}/> )}
+                {uploadProgress !== null && (<ProgressBar variant="success" animated now={uploadProgress}/> )}
                     
-                    {message && (<Alert variant={message.error ? 'warning' : 'success'}> {message.text}</Alert>)}
+                {message && (<Alert variant={message.error ? 'warning' : 'success'}> {message.text}</Alert>)}
                     
                 
         </div>
