@@ -7,48 +7,66 @@ import UploadImageDropzone from './components/UploadImageDropzone';
 import useImages from './hooks/useImages';
 import SimpleReactLightBox, { SRLWrapper } from 'simple-react-lightbox';
 import NavBar from './components/NavBar';
-
-  
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
+import Signup from './components/Signup';
+import NotFound from './components/NotFound';
+import AuthContextProvider from './contexts/AuthContext';
 
 function App() {
   const { images } = useImages();
 
 return (
-  <>
+
+  <Router>
+      <AuthContextProvider>
+          <SimpleReactLightBox>
+
+          <NavBar/>
+
+            <Container className="py-3 mb-5"> 
+            
+            <Routes>
+                <Route path="/">
+                    <Home />
+                </Route>
+
+                <Route path="/signup">
+                    <Signup />
+                </Route>
+
+                <Route path="*" element={<NotFound />} />  
+            </Routes>
 
 
-  <SimpleReactLightBox>
+              <header className="App-header mb-4">
+              
+                <h1>Photo review</h1>
+              </header>
+            
+              <UploadImageDropzone />
 
-  <NavBar/>
+            <SRLWrapper>  
+            <Row className= "mb-2">
+              {
+                images.map(image =>  ( 
+                    <CardPhoto image={image} key={image.id}/>
+                  ))	
+                }
+                </Row>
+                </SRLWrapper>
 
-    <Container className="py-3 mb-5"> 
-      <header className="App-header mb-4">
-      
-        <h1>Photo review</h1>
-      </header>
-     
-      <UploadImageDropzone />
-
-    <SRLWrapper>  
-    <Row className= "mb-2">
-      {
-        images.map(image =>  ( 
-            <CardPhoto image={image} key={image.id}/>
-          ))	
-        }
-        </Row>
-        </SRLWrapper>
-
-      
-  
-    </Container>	
-        
-    <footer className="bg-dark text-white text-center py-3">
-        <span className="text-muted text-small"> Simple File uploader</span>
-    </footer>
-  
-  </SimpleReactLightBox>
-  </>
+              
+          
+            </Container>	
+                
+            <footer className="bg-dark text-white text-center py-3">
+                <span className="text-muted text-small"> Simple File uploader</span>
+            </footer>
+          
+          </SimpleReactLightBox>
+      </AuthContextProvider>
+  </Router>
 );
 }
 

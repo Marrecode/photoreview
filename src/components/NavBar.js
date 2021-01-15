@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown, Container, Form, Button, FormControl } from 'react-bootstrap';
+import { Link } from 'react-router-dom'; 
 import logo from '../assets/logo.png'; 
 
 
@@ -8,7 +9,8 @@ const NavBar = () => {
     <>
         <Navbar bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand href="/">
+            <Link to="/">
+                <Navbar.Brand>
                 <img
                     alt="photo album"
                     src={logo}
@@ -18,7 +20,7 @@ const NavBar = () => {
                 />{' '}
                     ohSnapgram
                 </Navbar.Brand>
-
+            </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
