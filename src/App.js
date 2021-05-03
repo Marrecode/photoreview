@@ -16,6 +16,9 @@ import NotFound from "./components/NotFound";
 import AuthContextProvider from "./contexts/AuthContext";
 import AuthRoute from "./components/AuthRoute";
 import ForgotPassword from "./components/ForgotPassword";
+import CreateAlbum from "./components/albums/CreateAlbum";
+import Albums from "./components/albums/Albums";
+import Album from "./components/albums/Album";
 
 function App() {
   const { images } = useImages();
@@ -31,6 +34,20 @@ function App() {
               <AuthRoute path="/">
                 <Home />
               </AuthRoute>
+
+              <Route path="/albums">
+                <Route path="/">
+                  <Albums />
+                </Route>
+
+                <AuthRoute path="/create">
+                  <CreateAlbum />
+                </AuthRoute>
+
+                <Route path="/:albumId">
+                  <Album />
+                </Route>
+              </Route>
 
               <Route path="/forgot-Password">
                 <ForgotPassword />
