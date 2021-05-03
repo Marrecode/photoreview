@@ -13,13 +13,20 @@ const AuthContextProvider = (props) => {
   const [loading, setLoading] = useState(true);
 
   const signup = (email, password) => {
-    console.log(
-      `Would sign up user with email ${email} and password ${password}`
-    );
     return auth.createUserWithEmailAndPassword(email, password);
   };
 
+  const logout = () => {
+    return auth.signOut();
+  };
+
+  const login = (email, password) => {
+    return auth.signInWithEmailAndPassword(email, password);
+  };
+
   const contextValues = {
+    login,
+    logout,
     signup,
     currentUser,
     loading,

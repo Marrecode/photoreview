@@ -1,73 +1,68 @@
-import React, { useEffect, useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import './assets/app.scss';
-import CardPhoto from './components/CardPhoto';
-import UploadImageDropzone from './components/UploadImageDropzone';
-import useImages from './hooks/useImages';
-import SimpleReactLightBox, { SRLWrapper } from 'simple-react-lightbox';
-import NavBar from './components/NavBar';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './components/Home';
-import Signup from './components/Signup';
-import NotFound from './components/NotFound';
-import AuthContextProvider from './contexts/AuthContext';
+import React, { useEffect, useState } from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import "./assets/app.scss";
+import CardPhoto from "./components/CardPhoto";
+import UploadImageDropzone from "./components/UploadImageDropzone";
+import useImages from "./hooks/useImages";
+import SimpleReactLightBox, { SRLWrapper } from "simple-react-lightbox";
+import NavBar from "./components/NavBar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import NotFound from "./components/NotFound";
+import AuthContextProvider from "./contexts/AuthContext";
+import AuthRoute from "./components/AuthRoute";
 
 function App() {
   const { images } = useImages();
 
-return (
-
-  <Router>
+  return (
+    <Router>
       <AuthContextProvider>
-          <SimpleReactLightBox>
+        <SimpleReactLightBox>
+          <NavBar />
 
-          <NavBar/>
-
-            <Container className="py-3 mb-5"> 
-            
+          <Container className="py-3 mb-5">
             <Routes>
-                <Route path="/">
-                    <Home />
-                </Route>
+              <AuthRoute path="/">
+                <Home />
+              </AuthRoute>
 
-                <Route path="/signup">
-                    <Signup />
-                </Route>
+              <Route path="/signup">
+                <Signup />
+              </Route>
 
-                <Route path="*" element={<NotFound />} />  
+              <Route path="/login">
+                <Login />
+              </Route>
+
+              <Route path="*" element={<NotFound />} />
             </Routes>
 
+            <header className="App-header mb-4">
+              <h1>Photo review</h1>
+            </header>
 
-              <header className="App-header mb-4">
-              
-                <h1>Photo review</h1>
-              </header>
-            
-              <UploadImageDropzone />
+            <UploadImageDropzone />
 
-            <SRLWrapper>  
-            <Row className= "mb-2">
-              {
-                images.map(image =>  ( 
-                    <CardPhoto image={image} key={image.id}/>
-                  ))	
-                }
-                </Row>
-                </SRLWrapper>
+            <SRLWrapper>
+              <Row className="mb-2">
+                {images.map((image) => (
+                  <CardPhoto image={image} key={image.id} />
+                ))}
+              </Row>
+            </SRLWrapper>
+          </Container>
 
-              
-          
-            </Container>	
-                
-            <footer className="bg-dark text-white text-center py-3">
-                <span className="text-muted text-small"> Simple File uploader</span>
-            </footer>
-          
-          </SimpleReactLightBox>
+          <footer className="bg-dark text-white text-center py-3">
+            <span className="text-muted text-small"> Simple File uploader</span>
+          </footer>
+        </SimpleReactLightBox>
       </AuthContextProvider>
-  </Router>
-);
+    </Router>
+  );
 }
 
 export default App;
