@@ -20,11 +20,16 @@ const AuthContextProvider = (props) => {
     return auth.signOut();
   };
 
+  const ResetPassword = (email) => {
+    return auth.sendPasswordResetEmail(email);
+  };
+
   const login = (email, password) => {
     return auth.signInWithEmailAndPassword(email, password);
   };
 
   const contextValues = {
+    ResetPassword,
     login,
     logout,
     signup,

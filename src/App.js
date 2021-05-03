@@ -11,9 +11,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
+import Logout from "./components/Logout";
 import NotFound from "./components/NotFound";
 import AuthContextProvider from "./contexts/AuthContext";
 import AuthRoute from "./components/AuthRoute";
+import ForgotPassword from "./components/ForgotPassword";
 
 function App() {
   const { images } = useImages();
@@ -30,12 +32,20 @@ function App() {
                 <Home />
               </AuthRoute>
 
+              <Route path="/forgot-Password">
+                <ForgotPassword />
+              </Route>
+
               <Route path="/signup">
                 <Signup />
               </Route>
 
               <Route path="/login">
                 <Login />
+              </Route>
+
+              <Route path="/logout">
+                <Logout />
               </Route>
 
               <Route path="*" element={<NotFound />} />

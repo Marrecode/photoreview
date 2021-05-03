@@ -9,17 +9,11 @@ import {
   FormControl,
 } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 const NavBar = () => {
-  const { currentUser, logout } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogOut = async () => {
-    await logout();
-    navigate("login");
-  };
+  const { currentUser } = useAuth();
 
   return (
     <>
@@ -47,12 +41,8 @@ const NavBar = () => {
                     My Profile
                   </NavLink>
                   <NavDropdown.Divider />
-                  <NavLink
-                    to="/logout"
-                    className="dropdown-item"
-                    onClick={handleLogOut}
-                  >
-                    Log out
+                  <NavLink to="/logout" className="dropdown-item">
+                    Log Out
                   </NavLink>
                 </NavDropdown>
               ) : (
