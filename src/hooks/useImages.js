@@ -1,27 +1,30 @@
-import { useEffect, useState } from 'react';
-import { db } from '../firebase';
+import { useEffect, useState } from "react";
+import { db } from "../firebase";
 
-const useImages = () => {
-    const [images, setImages] = useState([]);
+const useImages = (albumId) => {
+  const [images, setImages] = useState([]);
 
+  useEffect(() => {
+    const unsubscribe = db
+      .collection("images")
+      .where("album", "==", db.collection("albums").doc(albumId))
+      .orderBy("name")
+      .onSnapshot((snapshot) => {
+        const imgs = [];
 
-
-    useEffect(() => {
-      const useSubscribe= db.collection('images').orderBy("name").onSnapshot(snapshot =>{ 
-      const imgs = [];
-          
-           snapshot.forEach(doc => {
-               imgs.push({
-                   id: doc.id,
-                   ...doc.data(),
-               });
-           });
-           setImages(imgs);
+        snapshot.forEach((doc) => {
+          imgs.push({
+            id: doc.id,
+            ...doc.data(),
+          });
         });
-        return useSubscribe;
-}, []);
 
-    return { images }
-}
- 
+        setImages(imgs);
+      });
+    return unsubscribe;
+  }, [albumId]);
+
+  return { images };
+};
+
 export default useImages;
