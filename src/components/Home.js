@@ -3,6 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const Home = () => {
   const { currentUser, loading } = useAuth();
+  console.log(currentUser);
 
   return (
     <div>
