@@ -1,5 +1,5 @@
 import React from "react";
-import AlbumImages from "./AlbumImages";
+import ImagesGrid from "./ImagesGrid";
 import { useParams } from "react-router-dom";
 import useImages from "../../hooks/useImages";
 
@@ -9,8 +9,8 @@ const Album = () => {
 
   return (
     <div>
-      <h4>specific Album {albumId}</h4>
-      <AlbumImages images={images} />
+      <h4>The Album id: {albumId}</h4>
+      <ImagesGrid images={images} />
     </div>
   );
 };
