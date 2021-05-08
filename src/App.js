@@ -25,69 +25,63 @@ function App() {
 
   return (
     <Router>
-      <AuthContextProvider>
-        <SimpleReactLightBox>
-          <NavBar />
+      <div className="center">
+        <AuthContextProvider>
+          <SimpleReactLightBox>
+            <NavBar />
 
-          <Container className="py-3 mb-5">
-            <Routes>
-              <AuthRoute path="/">
-                <Home />
-              </AuthRoute>
-
-              <Route path="/albums">
-                <Route path="/">
-                  <Albums />
-                </Route>
-
-                <AuthRoute path="/create">
-                  <CreateAlbum />
+            <Container className="container">
+              <header className="App-header mb-4 d-flex justify-content-center">
+                <h1>Photo review</h1>
+              </header>
+              <Routes>
+                <AuthRoute path="/">
+                  <Home />
                 </AuthRoute>
 
-                <Route path="/:albumId">
-                  <Album />
+                <Route path="/albums">
+                  <Route path="/">
+                    <Albums />
+                  </Route>
+
+                  <AuthRoute path="/create">
+                    <CreateAlbum />
+                  </AuthRoute>
+
+                  <Route path="/:albumId">
+                    <Album />
+                  </Route>
                 </Route>
-              </Route>
 
-              <Route path="/forgot-Password">
-                <ForgotPassword />
-              </Route>
+                <Route path="/forgot-Password">
+                  <ForgotPassword />
+                </Route>
 
-              <Route path="/signup">
-                <Signup />
-              </Route>
+                <Route path="/signup">
+                  <Signup />
+                </Route>
 
-              <Route path="/login">
-                <Login />
-              </Route>
+                <Route path="/login">
+                  <Login />
+                </Route>
 
-              <Route path="/logout">
-                <Logout />
-              </Route>
+                <Route path="/logout">
+                  <Logout />
+                </Route>
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Container>
 
-            <header className="App-header mb-4">
-              <h1>Photo review</h1>
-            </header>
-
-            <UploadImageDropzone />
-
-            <SRLWrapper>
-              <Row className="mb-2">
-                {images.map((image) => (
-                  <CardPhoto image={image} key={image.id} />
-                ))}
-              </Row>
-            </SRLWrapper>
-          </Container>
-
-          <footer className="bg-dark text-white text-center py-3">
-            <span className="text-muted text-small"> Simple File uploader</span>
-          </footer>
-        </SimpleReactLightBox>
-      </AuthContextProvider>
+            <footer className="bg-dark text-white text-center py-3">
+              <span className="text-muted text-small">
+                {" "}
+                Simple File uploader
+              </span>
+            </footer>
+          </SimpleReactLightBox>
+        </AuthContextProvider>
+      </div>
     </Router>
   );
 }

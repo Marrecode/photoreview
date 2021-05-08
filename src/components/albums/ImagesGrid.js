@@ -8,7 +8,7 @@ const ImagesGrid = ({ images }) => {
       <SRLWrapper>
         <Row className="my-3">
           {images.map((image) => (
-            <Col sm={2} md={3} lg={4} key={image.id}>
+            <Col sm={2} md={3} lg={4} key={image.id} className="column">
               <Card className="mb-3">
                 <a
                   href={image.url}
@@ -17,10 +17,10 @@ const ImagesGrid = ({ images }) => {
                 >
                   <Card.Img variant="top" src={image.url} title={image.name} />
                 </a>
+                <Card.Text className="text-muted small">
+                  {image.name} ({Math.round(image.size / 1024)} kb)
+                </Card.Text>
                 <Card.Body>
-                  <Card.Text className="text-muted small">
-                    {image.name} ({Math.round(image.size / 1024)} kb)
-                  </Card.Text>
                   {/*   <Button variant="danger" size="sm" onClick={handleRemoveImage}>
             {" "}
             Remove{" "}

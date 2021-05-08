@@ -28,7 +28,7 @@ const ForgotPassword = () => {
   return (
     <>
       <Row>
-        <Col md={{ span: 6, offset: 4 }}>
+        <Col md={{ span: 6, offset: 4 }} className="formCol">
           <Card>
             <Card.Body>
               <Card.Title>Forgot password</Card.Title>

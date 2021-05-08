@@ -29,8 +29,8 @@ const Login = () => {
   return (
     <>
       <Row>
-        <Col md={{ span: 6, offset: 4 }}>
-          <Card>
+        <Col md={{ span: 6, offset: 4 }} className="formCol">
+          <Card className="formCard">
             <Card.Body>
               <Card.Title>Log in</Card.Title>
 

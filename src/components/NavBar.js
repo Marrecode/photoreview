@@ -26,8 +26,8 @@ const NavBar = () => {
               width="30"
               height="30"
               className="d-inline-block align-top"
-            />
-            ohSnapgram
+            />{" "}
+            PhotoReviewer
           </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -54,10 +54,6 @@ const NavBar = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Form inline>
-        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-        <Button variant="outline-success">Search</Button>
-      </Form>
     </>
   );
 };

@@ -1,71 +1,74 @@
-import { useState, useEffect } from 'react';
-import {db, storage} from  '../firebase';
-        
-const useUploadImage = (file) => {
-    const [uploadProgress, setUploadProgress] = useState(null);
-    const [uploadedImage, setUploadedImage] = useState(null); 
-    const [error, setError] = useState(null);
-    const [isSucess, setIsSuccess] = useState(false);
+import { useState, useEffect } from "react";
+import { db, storage } from "../firebase";
+import { useAuth } from "../contexts/AuthContext";
 
-    
-    useEffect(()=>{
-        if(!file){
-            setUploadProgress(null);
-            setUploadedImage(null);
-            setError(null);
-            setIsSuccess(false);
- 
-            return;
-        }
+const useUploadImage = (image, albumId = null) => {
+  const [uploadProgress, setUploadProgress] = useState(null);
+  const [uploadedImage, setUploadedImage] = useState([]);
+  const [error, setError] = useState(null);
+  const [isSucess, setIsSuccess] = useState(false);
+  const { currentUser } = useAuth();
 
-        setError(null);
-        setIsSuccess(false);
-        // get file reference
-        const fileRef = storage.ref(`images/${file.name}`);
- 
-        // put file to fileRef
-        const uploadTask = fileRef.put(file);
- 
-        //atach listener for `state_changed-event
-        uploadTask.on('state_changed', taskSnapshot => {
-            setUploadProgress(Math.round((taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) * 100));
-            //console.log(`Transfered ${taskSnapshot.bytesTransferred} bytes out of ${taskSnapshot.totalBytes} which is ${progress} %.`);
+  useEffect(() => {
+    if (!image) {
+      setUploadProgress(null);
+      setUploadedImage(null);
+      setError(null);
+      setIsSuccess(false);
+
+      return;
+    }
+
+    setError(null);
+    setIsSuccess(false);
+
+    image.forEach((image) => {
+      const fileRef = storage.ref(`images/${currentUser.uid}/${image.name}`);
+
+      const uploadTask = fileRef.put(image);
+
+      uploadTask.on("state_changed", (taskSnapshot) => {
+        setUploadProgress(
+          Math.round(
+            (taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) * 100
+          )
+        );
+      });
+
+      uploadTask
+        .then(async (snapshot) => {
+          const url = await snapshot.ref.getDownloadURL();
+
+          const img = {
+            name: image.name,
+            owner: currentUser.uid,
+            path: snapshot.ref.fullPath,
+            size: image.size,
+            type: image.type,
+            url,
+          };
+
+          if (albumId) {
+            img.album = db.collection("albums").doc(albumId);
+          }
+
+          await db.collection("images").add(img);
+          setIsSuccess(true);
+          setUploadProgress(null);
+          setUploadedImage(img);
+          setIsSuccess(true);
+        })
+        .catch((error) => {
+          console.error("File upload can been uploadded!", error);
+          setError({
+            typ: "warning",
+            msg: `Image could not be uploaded (${error.code})`,
+          });
         });
- 
-        // are we there yet?
-        uploadTask.then(snapshot=>{
+    });
+  }, [image, currentUser, albumId]);
 
-            //rereieve URL to uploaded file
-            snapshot.ref.getDownloadURL().then(url => {
-             //add uploaded file to db
-             const image ={
-                name: file.name,
-                path: snapshot.ref.fullPath,
-                size: file.size,
-                type:file.type,
-                url,        
-             };
-            
-            db.collection('images').add(image).then(() => {
+  return { uploadProgress, uploadedImage, error, isSucess };
+};
 
-                setIsSuccess(true);
-                setUploadProgress(null);
-
-                 //file hase been added to db
-                 setUploadedImage(image);
-                 setIsSuccess(true);
-            });
-        }); 
-        }).catch(error => {
-            console.error("File upload can been uploadded!", error);
-            setError({
-                typ:"warning",
-                msg: `Image could not be uploaded (${error.code})`
-            });
-        });     
-    }, [file]);
- 
-    return {uploadProgress, uploadedImage, error, isSucess, };
-}
- 
 export default useUploadImage;
