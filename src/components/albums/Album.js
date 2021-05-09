@@ -10,7 +10,14 @@ import { ClipLoader } from "react-spinners";
 const Album = () => {
   const { albumId } = useParams();
   const [reviewLink, setReviewLink] = useState(null);
+  const [copy, setCopy] = useClipboard(reviewLink);
   const { album, images, loading } = useImages(albumId);
+
+  const chooseNewLink = (album) => {
+    let baseUrl = window.location.origin;
+    let url = `${baseUrl}/Reviewalbum/${album}`;
+    setReviewLink(url);
+  };
 
   return (
     <>
@@ -24,6 +31,23 @@ const Album = () => {
           Change name of the Album
         </Link>
       </Button>
+      <Button
+        className="btn btn-dark btn-lg ml-3 mt-2 "
+        onClick={() => {
+          chooseNewLink(albumId);
+        }}
+      >
+        Create client review
+      </Button>
+
+      {reviewLink && (
+        <p className="mt-3 text-muted font-weight-light">
+          {reviewLink}
+          <Button className="btn btn-dark btn-sm ml-3" onClick={setCopy}>
+            {copy ? "Copied " : "Copy Link "}
+          </Button>
+        </p>
+      )}
 
       <UploadAlbumImage albumId={albumId} />
 
