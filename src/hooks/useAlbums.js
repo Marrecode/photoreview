@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
+import { useAuth } from "../contexts/AuthContext";
 
 const useAlbums = () => {
+  const { currentUser } = useAuth();
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = db
       .collection("albums")
+      .where("owner", "==", currentUser.uid)
       .orderBy("title")
       .onSnapshot((snapshot) => {
         setLoading(true);
@@ -24,7 +27,7 @@ const useAlbums = () => {
       });
 
     return unsubscribe;
-  }, []);
+  }, [currentUser]);
 
   return { albums, loading };
 };

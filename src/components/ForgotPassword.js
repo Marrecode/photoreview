@@ -49,7 +49,7 @@ const ForgotPassword = () => {
             </Card.Body>
           </Card>
           <div className="text-center mt-2">
-            Remembered your password? <Link to="/log in">Log in</Link>
+            Remembered your password? <Link to="/login">Log in</Link>
           </div>
         </Col>
       </Row>

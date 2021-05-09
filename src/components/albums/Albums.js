@@ -16,7 +16,6 @@ const Albums = () => {
 
       {!loading && <AlbumsGrid albums={albums} />}
 
-      <div>This will be the album</div>
       {currentUser && (
         <div>
           <Link to="/albums/create" className="btn btn-success">

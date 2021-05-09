@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
 import "./assets/app.scss";
-import CardPhoto from "./components/CardPhoto";
-import UploadImageDropzone from "./components/UploadImageDropzone";
 import useImages from "./hooks/useImages";
 import SimpleReactLightBox, { SRLWrapper } from "simple-react-lightbox";
 import NavBar from "./components/NavBar";
@@ -19,6 +16,9 @@ import ForgotPassword from "./components/ForgotPassword";
 import CreateAlbum from "./components/albums/CreateAlbum";
 import Albums from "./components/albums/Albums";
 import Album from "./components/albums/Album";
+import EditAlbum from "./components/albums/EditAlbum";
+import Thanks from "./components/albums/Thanks";
+import ReviewAlbum from "./components/albums/ReviewAlbum";
 
 function App() {
   const { images } = useImages();
@@ -35,11 +35,11 @@ function App() {
                 <h1>Photo review</h1>
               </header>
               <Routes>
-                <AuthRoute path="/">
+                <Route path="/">
                   <Home />
-                </AuthRoute>
+                </Route>
 
-                <Route path="/albums">
+                <AuthRoute path="/albums">
                   <Route path="/">
                     <Albums />
                   </Route>
@@ -51,7 +51,7 @@ function App() {
                   <Route path="/:albumId">
                     <Album />
                   </Route>
-                </Route>
+                </AuthRoute>
 
                 <Route path="/forgot-Password">
                   <ForgotPassword />
@@ -59,6 +59,18 @@ function App() {
 
                 <Route path="/signup">
                   <Signup />
+                </Route>
+
+                <Route path="/albums/edit/:albumId">
+                  <EditAlbum />
+                </Route>
+
+                <Route path="/thanks">
+                  <Thanks />
+                </Route>
+
+                <Route path="/ReviewAlbum/:albumId">
+                  <ReviewAlbum />
                 </Route>
 
                 <Route path="/login">
