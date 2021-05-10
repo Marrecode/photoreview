@@ -1,19 +1,11 @@
-import React, { useState } from "react";
-import { Col, Row, Card, Button } from "react-bootstrap";
+import { Col, Row, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { SRLWrapper } from "simple-react-lightbox";
-import useRemoveImage from "../../hooks/useRemoveImage";
 import { useAuth } from "../../contexts/AuthContext";
 
 const ImagesGrid = ({ images }) => {
   const { currentUser } = useAuth();
-  const [removeImage, setRemoveImage] = useState(null);
-  useRemoveImage(removeImage);
 
-  const handleRemoveImage = (image) => {
-    if (confirm(`You want to remove this file \n"${image.name}"?`))
-      setRemoveImage(image);
-  };
   return (
     <>
       <SRLWrapper>
@@ -33,23 +25,6 @@ const ImagesGrid = ({ images }) => {
                       title={image.name}
                     />
                   </a>
-                  {currentUser.uid === image.owner && (
-                    <div className="flexButton">
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        onClick={() => {
-                          handleRemoveImage(image);
-                        }}
-                      >
-                        Remove
-                      </Button>
-                    </div>
-                  )}
-
-                  <Card.Text className="text-muted small">
-                    {image.name} ({Math.round(image.size / 1024)} kb)
-                  </Card.Text>
 
                   <Card.Body>
                     <Link to={`/albums/${image.id}`}>{image.title}</Link>

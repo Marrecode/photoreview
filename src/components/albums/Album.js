@@ -9,7 +9,6 @@ import ImageBox from "../ImageLightBox/ImageShow";
 import AlbumsImages from "./AlbumsImages";
 import { useAuth } from "../../contexts/AuthContext";
 import UploadAlbumImage from "./UploadAlbumImage";
-import { ClipLoader } from "react-spinners";
 
 const Album = () => {
   const { currentUser } = useAuth();

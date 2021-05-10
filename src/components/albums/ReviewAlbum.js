@@ -10,10 +10,10 @@ import ImageLightBox from "../ImageLightBox/ImageShow";
 const ReviewAlbum = () => {
   const { albumId } = useParams();
   const { images } = useImages(albumId);
-  const [fault, setFault] = useState(false);
+  const [msg, setMsg] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [someLikes, setsomeLikes] = useState([]);
-  const [lookOverImage, setlookOverImage] = useState([]);
+  const [Likes, setLikes] = useState([]);
+  const [cardImage, setCardImage] = useState([]);
   const [chooseImg, setchooseImg] = useState(null);
   const { album, loading } = useAlbum(albumId);
 
@@ -29,39 +29,37 @@ const ReviewAlbum = () => {
           };
         })
       );
-      setlookOverImage(cardList);
+      setCardImage(cardList);
     }
     getImages();
   }, [images]);
 
   useEffect(() => {
-    let likedArray = lookOverImage.filter((image) => {
+    const filterArray = cardImage.filter((image) => {
       return image.like === true;
     });
-    setsomeLikes(likedArray);
+    setLikes(filterArray);
 
-    let effectOfYourResult = lookOverImage.every(
-      (image) => image.like !== undefined
-    );
-    if (effectOfYourResult === false) {
+    const resultCard = cardImage.every((image) => image.like !== undefined);
+    if (resultCard === false) {
       setDisabled(true);
       return;
-    } else if (effectOfYourResult === true) {
+    } else if (resultCard === true) {
       setDisabled(false);
     }
-  }, [lookOverImage]);
+  }, [cardImage]);
 
   const handleReview = async () => {
     const title = `${album.title} is reviewed`;
 
-    setFault(false);
+    setMsg(false);
 
     try {
       const docRef = await db.collection("albums").add({
         title,
         owner: album.owner,
       });
-      await someLikes.forEach((image) => {
+      await Likes.forEach((image) => {
         db.collection("images")
           .doc(image.id)
           .update({
@@ -72,25 +70,29 @@ const ReviewAlbum = () => {
       });
       navigate(`/reviewdone`);
     } catch (fault) {
-      setFault(fault.message);
+      setMsg(msg.message);
     }
   };
 
-  const dealWithSomeReview = (id, liked) => {
-    let Line = document.getElementById(id);
+  const handleTheReview = (id, liked) => {
+    const reviewId = document.getElementById(id);
     if (liked === true) {
-      Line.getElementsByClassName("like")[0].classList.add("like-active");
-      Line.getElementsByClassName("dislike")[0].classList.remove(
-        "dislike-active"
-      );
+      reviewId.getElementsByClassName("like")[0].classList.add("like-active");
+      reviewId
+        .getElementsByClassName("dislike")[0]
+        .classList.remove("dislike-active");
     } else if (liked === false) {
-      Line.getElementsByClassName("dislike")[0].classList.add("dislike-active");
-      Line.getElementsByClassName("like")[0].classList.remove("like-active");
+      reviewId
+        .getElementsByClassName("dislike")[0]
+        .classList.add("dislike-active");
+      reviewId
+        .getElementsByClassName("like")[0]
+        .classList.remove("like-active");
     }
   };
 
   const handleLikes = (image, liked) => {
-    let changeArray = lookOverImage.map((img) => {
+    let changeArray = cardImage.map((img) => {
       if (img.id === image.id) {
         return {
           id: img.id,
@@ -100,8 +102,8 @@ const ReviewAlbum = () => {
         return img;
       }
     });
-    setlookOverImage(changeArray);
-    dealWithSomeReview(image.id, liked);
+    setCardImage(changeArray);
+    handleTheReview(image.id, liked);
   };
 
   if (loading) {
@@ -123,7 +125,7 @@ const ReviewAlbum = () => {
       )}
 
       <h2 className="text-center mb-2">
-        {someLikes.length} / {images.length}
+        {Likes.length} / {images.length}
       </h2>
 
       <div className="d-flex justify-content-center mb-5">
@@ -136,7 +138,7 @@ const ReviewAlbum = () => {
         </button>
       </div>
 
-      {fault && <p>{fault}</p>}
+      {msg && <p>{msg}</p>}
     </>
   );
 };

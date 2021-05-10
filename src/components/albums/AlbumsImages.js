@@ -21,7 +21,6 @@ const AlbumsImages = ({ images, PickedImage, handleLikes, setChooseImg }) => {
             <Col sm={6} md={2} lg={3}>
               <Card key={image.id} className="card">
                 <Card.Img
-                  style={{ width: "auto", height: "auto" }}
                   variant="top"
                   src={image.url}
                   onClick={() => setChooseImg(image.url)}

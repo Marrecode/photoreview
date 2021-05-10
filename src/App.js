@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-import Container from "react-bootstrap/Container";
 import "./assets/app.scss";
 import useImages from "./hooks/useImages";
 import SimpleReactLightBox, { SRLWrapper } from "simple-react-lightbox";
@@ -17,7 +15,6 @@ import CreateAlbum from "./components/albums/CreateAlbum";
 import Albums from "./components/albums/Albums";
 import Album from "./components/albums/Album";
 import EditAlbum from "./components/albums/EditAlbum";
-import LikedImages from "./components/albums/LikedImages";
 import ReviewAlbum from "./components/albums/ReviewAlbum";
 import ReviewDone from "./components/albums/ReviewDone";
 

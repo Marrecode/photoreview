@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Navbar,
-  Nav,
-  NavDropdown,
-  Container,
-  Form,
-  Button,
-  FormControl,
-} from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -37,7 +29,7 @@ const NavBar = () => {
               </NavLink>
               {currentUser ? (
                 <NavDropdown title={currentUser.email} id="basic-nav-dropdown">
-                  <NavLink to="/my-profile" className="dropdown-item">
+                  <NavLink to="/" className="dropdown-item">
                     My Profile
                   </NavLink>
                   <NavDropdown.Divider />

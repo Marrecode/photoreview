@@ -10,10 +10,9 @@ const Home = () => {
       <div className="container">
         <div>
           <p> Home </p>
-          <p>
-            you are logged in as{" "}
-            <strong>{currentUser && currentUser.email}</strong>
-          </p>
+          <h1>
+            Logged in as <strong>{currentUser && currentUser.email}</strong>
+          </h1>
         </div>
       </div>
     </>
