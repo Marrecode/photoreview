@@ -9,8 +9,7 @@ const AlbumsImages = ({ images, PickedImage, handleLikes, setChooseImg }) => {
   useRemoveImage(removeImage);
 
   const handleRemoveImage = (image) => {
-    if (confirm(`You want to remove this file \n"${image.name}"?`))
-      setRemoveImage(image);
+    setRemoveImage(image);
   };
 
   return (
