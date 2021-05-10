@@ -12,10 +12,6 @@ const Albums = () => {
     <>
       <h1>All them Albums</h1>
 
-      {loading && <ClipLoader color={"black"} />}
-
-      {!loading && <AlbumsGrid albums={albums} />}
-
       {currentUser && (
         <div>
           <Link to="/albums/create" className="btn btn-success">
@@ -23,6 +19,10 @@ const Albums = () => {
           </Link>
         </div>
       )}
+
+      {loading && <ClipLoader color={"black"} />}
+
+      {!loading && <AlbumsGrid albums={albums} />}
     </>
   );
 };

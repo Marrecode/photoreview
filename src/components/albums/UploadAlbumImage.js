@@ -53,50 +53,52 @@ const UploadAlbumImage = ({ albumId }) => {
   });
 
   return (
-    <div
-      {...getRootProps()}
-      id="upload-image-wrapper"
-      className={`text-center px-4 py-3 my-3 ${
-        isDragAccept ? `drag-accept` : ``
-      } 
+    <>
+      <div
+        {...getRootProps()}
+        id="upload-image-wrapper"
+        className={`text-center px-4 py-3 my-3 ${
+          isDragAccept ? `drag-accept` : ``
+        } 
         ${isDragReject ? `drag-reject` : ``}`}
-    >
-      <input {...getInputProps()} />
+      >
+        <input {...getInputProps()} />
 
-      {isDragActive ? (
-        isDragAccept ? (
-          <p>Drop it!</p>
+        {isDragActive ? (
+          isDragAccept ? (
+            <p>Drop it!</p>
+          ) : (
+            <p>Should not be dropped here</p>
+          )
         ) : (
-          <p>Should not be dropped here</p>
-        )
-      ) : (
-        <p>Drop me some files!</p>
-      )}
-      {acceptedFiles && (
-        <div className="accepted-files mt-2">
-          <ul className="list-unstyled">
-            {acceptedFiles.map((file) => (
-              <li key={file.name}>
-                <small>
-                  {file.name} ({Math.round(file.size / 1024)} kb)
-                </small>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+          <p>Drop me some files!</p>
+        )}
+        {acceptedFiles && (
+          <div className="accepted-files mt-2">
+            <ul className="list-unstyled">
+              {acceptedFiles.map((file) => (
+                <li key={file.name}>
+                  <small>
+                    {file.name} ({Math.round(file.size / 1024)} kb)
+                  </small>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
-      {uploadProgress !== null && (
-        <ProgressBar variant="success" animated now={uploadProgress} />
-      )}
+        {uploadProgress !== null && (
+          <ProgressBar variant="success" animated now={uploadProgress} />
+        )}
 
-      {message && (
-        <Alert variant={message.error ? "warning" : "success"}>
-          {" "}
-          {message.text}
-        </Alert>
-      )}
-    </div>
+        {message && (
+          <Alert variant={message.error ? "warning" : "success"}>
+            {" "}
+            {message.text}
+          </Alert>
+        )}
+      </div>
+    </>
   );
 };
 

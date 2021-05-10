@@ -49,7 +49,7 @@ const useUploadImage = (image, albumId = null) => {
           };
 
           if (albumId) {
-            img.album = db.collection("albums").doc(albumId);
+            img.album = [db.collection("albums").doc(albumId)];
           }
 
           await db.collection("images").add(img);

@@ -45,14 +45,31 @@ body {
   min-width: fit-content;
 }
 
+.card-photo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
 .card {
-  height: 250px;
+  height: 300px;
   width: 100%;
+  margin-bottom: 1rem;
 }
 
 .card-img-top {
-  height: 250px;
+  height: 243px !important;
   width: 100%;
+}
+
+.Card.Img {
+  height: 1000px;
 }
 
 footer {

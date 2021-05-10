@@ -6,12 +6,17 @@ const Home = () => {
   console.log(currentUser);
 
   return (
-    <div>
-      <p> Home Component</p>
-      <p>
-        you are logged in as <strong>{currentUser && currentUser.email}</strong>
-      </p>
-    </div>
+    <>
+      <div className="container">
+        <div>
+          <p> Home </p>
+          <p>
+            you are logged in as{" "}
+            <strong>{currentUser && currentUser.email}</strong>
+          </p>
+        </div>
+      </div>
+    </>
   );
 };
 

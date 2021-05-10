@@ -35,7 +35,7 @@ const Signup = () => {
     <>
       <Row>
         <Col md={{ span: 6, offset: 4 }}>
-          <Card>
+          <div className="card-photo">
             <Card.Body>
               <Card.Title>Sign up</Card.Title>
 
@@ -66,7 +66,7 @@ const Signup = () => {
                 </Button>
               </Form>
             </Card.Body>
-          </Card>
+          </div>
           <div className="text-center mt-2">
             Already have an account? <Link to="/login">Log In</Link>
           </div>

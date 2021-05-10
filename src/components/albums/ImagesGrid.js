@@ -21,7 +21,7 @@ const ImagesGrid = ({ images }) => {
           {images &&
             images.map((image) => (
               <Col sm={2} md={3} lg={4} key={image.id} className="column">
-                <Card className="mb-3">
+                <Card className="card">
                   <a
                     href={image.url}
                     title="View image in lightbox"

@@ -17,7 +17,7 @@ import CreateAlbum from "./components/albums/CreateAlbum";
 import Albums from "./components/albums/Albums";
 import Album from "./components/albums/Album";
 import EditAlbum from "./components/albums/EditAlbum";
-import Thanks from "./components/albums/Thanks";
+import LikedImages from "./components/albums/LikedImages";
 import ReviewAlbum from "./components/albums/ReviewAlbum";
 
 function App() {
@@ -29,11 +29,7 @@ function App() {
         <AuthContextProvider>
           <SimpleReactLightBox>
             <NavBar />
-
-            <Container className="container">
-              <header className="App-header mb-4 d-flex justify-content-center">
-                <h1>Photo review</h1>
-              </header>
+            <div className="container">
               <Routes>
                 <Route path="/">
                   <Home />
@@ -53,20 +49,16 @@ function App() {
                   </Route>
                 </AuthRoute>
 
+                <Route path="/albums/edit/:albumId">
+                  <EditAlbum />
+                </Route>
+
                 <Route path="/forgot-Password">
                   <ForgotPassword />
                 </Route>
 
                 <Route path="/signup">
                   <Signup />
-                </Route>
-
-                <Route path="/albums/edit/:albumId">
-                  <EditAlbum />
-                </Route>
-
-                <Route path="/thanks">
-                  <Thanks />
                 </Route>
 
                 <Route path="/ReviewAlbum/:albumId">
@@ -83,8 +75,7 @@ function App() {
 
                 <Route path="*" element={<NotFound />} />
               </Routes>
-            </Container>
-
+            </div>
             <footer className="bg-dark text-white text-center py-3">
               <span className="text-muted text-small">
                 {" "}
