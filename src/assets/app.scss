@@ -57,6 +57,44 @@ body {
   border-radius: 0.25rem;
 }
 
+.flex-space-between {
+  display: flex;
+  justify-content: space-between !important;
+}
+
+.photoLabel {
+  display: flex;
+  flex-grow: 1;
+  padding-left: 10px;
+}
+
+.like {
+  color: black;
+  border-radius: 1px;
+  padding: auto 4px;
+}
+
+.like-active {
+  color: black;
+  background-color: green;
+}
+
+.dislike {
+  color: black;
+  border-radius: 1px;
+  padding: auto 4px;
+}
+
+.dislike-active {
+  color: black;
+  background-color: red;
+}
+
+.flexButton {
+  display: flex;
+  justify-content: space-between;
+}
+
 .card {
   height: 300px;
   width: 100%;

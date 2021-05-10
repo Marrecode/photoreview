@@ -10,7 +10,7 @@ import ImageLightBox from "../ImageBox/ImageShow";
 const ReviewAlbum = () => {
   const { albumId } = useParams();
   const { images } = useImages(albumId);
-  const [fault, setFault] = useState(false);
+  const [error, setError] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [someLikes, setsomeLikes] = useState([]);
   const [lookOverImage, setlookOverImage] = useState([]);
@@ -54,7 +54,7 @@ const ReviewAlbum = () => {
   const handleReview = async () => {
     const title = `${album.title} is reviewed`;
 
-    setFault(false);
+    setError(false);
 
     try {
       const docRef = await db.collection("albums").add({
@@ -70,13 +70,17 @@ const ReviewAlbum = () => {
             ),
           });
       });
-      navigate(`/thanks`);
+      navigate(`/reviewdone`);
     } catch (fault) {
-      setFault(fault.message);
+      setError(fault.message);
     }
   };
 
-  const dealWithSomeReview = (id, liked) => {
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  const Review = (id, liked) => {
     let Line = document.getElementById(id);
     if (liked === true) {
       Line.getElementsByClassName("like")[0].classList.add("like-active");
@@ -101,12 +105,8 @@ const ReviewAlbum = () => {
       }
     });
     setlookOverImage(changeArray);
-    dealWithSomeReview(image.id, liked);
+    Review(image.id, liked);
   };
-
-  if (loading) {
-    return <p className="text-center">Loading...</p>;
-  }
 
   return (
     <>
@@ -127,17 +127,12 @@ const ReviewAlbum = () => {
       </h2>
 
       <div className="d-flex justify-content-center mb-5">
-        <button
-          id="buttons-allaround"
-          disabled={disabled}
-          className="btn btn-dark"
-          onClick={handleReview}
-        >
-          Send your review
+        <button disabled={disabled} onClick={handleReview}>
+          Send the review
         </button>
       </div>
 
-      {fault && <p>{fault}</p>}
+      {error && <p>{error}</p>}
     </>
   );
 };

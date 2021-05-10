@@ -34,15 +34,17 @@ const ImagesGrid = ({ images }) => {
                     />
                   </a>
                   {currentUser.uid === image.owner && (
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => {
-                        handleRemoveImage(image);
-                      }}
-                    >
-                      Remove
-                    </Button>
+                    <div className="flexButton">
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => {
+                          handleRemoveImage(image);
+                        }}
+                      >
+                        Remove
+                      </Button>
+                    </div>
                   )}
 
                   <Card.Text className="text-muted small">

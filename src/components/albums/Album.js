@@ -3,10 +3,9 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import useAlbum from "../../hooks/useAlbum";
 import useClipboard from "react-use-clipboard";
-import ImagesGrid from "./ImagesGrid";
 import { db } from "../../firebase";
 import firebase from "../../firebase/index";
-import ImageLightBox from "../ImageLightBox/ImageShow";
+import ImageBox from "../ImageLightBox/ImageShow";
 import AlbumsImages from "./AlbumsImages";
 import { useAuth } from "../../contexts/AuthContext";
 import UploadAlbumImage from "./UploadAlbumImage";
@@ -16,11 +15,11 @@ const Album = () => {
   const { currentUser } = useAuth();
   const { albumId } = useParams();
   const { album, images, loading } = useAlbum(albumId);
-  const [Link, setLink] = useState(null);
-  const [copy, setCopy] = useClipboard(Link);
-  const [chooseImages, setChooseImage] = useState([]);
+  const [linkCopy, setLinkCopy] = useState(null);
+  const [copy, setCopy] = useClipboard(linkCopy);
+  const [choseImgs, setChooseImage] = useState([]);
   const [error, setError] = useState(false);
-  const [modifyCaption, setModifyCaption] = useState(false);
+  const [switcher, setSwitcher] = useState(false);
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [chooseImg, setChooseImg] = useState(null);
@@ -28,14 +27,14 @@ const Album = () => {
   const reviewLink = (album) => {
     let baseUrl = window.location.origin;
     let url = `${baseUrl}/Reviewalbum/${album}`;
-    setLink(url);
+    setLinkCopy(url);
   };
 
   const onChange = (e) => {
     setTitle(e.target.value);
   };
 
-  const AlbumsImages = async (e) => {
+  const newAlbum = async (e) => {
     e.preventDefault();
 
     try {
@@ -44,7 +43,7 @@ const Album = () => {
         owner: currentUser.uid,
       });
 
-      await chooseImages.forEach((image) => {
+      await choseImgs.forEach((image) => {
         db.collection("images")
           .doc(image)
           .update({
@@ -59,14 +58,14 @@ const Album = () => {
     }
   };
 
-  const chooseOurImage = async (e) => {
-    let upToDateImage = [];
+  const PickedImage = async (e) => {
+    let newArray = [];
     if (e.target.checked === true) {
-      if (chooseImages.includes(e.target.id)) {
+      if (choseImgs.includes(e.target.id)) {
         return;
       }
-      upToDateImage.push(e.target.id);
-      setChooseImage(chooseImages.concat(upToDateImage));
+      newArray.push(e.target.id);
+      setChooseImage(choseImgs.concat(newArray));
     }
   };
 
@@ -95,15 +94,15 @@ const Album = () => {
       <Button
         className="btn btn-dark btn-lg ml-3 mt-2"
         onClick={() => {
-          setModifyCaption(!modifyCaption);
+          setSwitcher(!switcher);
         }}
       >
-        {modifyCaption ? "Close" : "Create album"}
+        {switcher ? "Close it" : "Create album"}
       </Button>
 
-      {modifyCaption && (
+      {switcher && (
         <div className="d-flex justify-content-center ">
-          <Form onSubmit={AlbumsImages} className="w-50 p-3 text-center">
+          <Form onSubmit={newAlbum} className="w-50 p-3 text-center">
             <Form.Group id="title">
               <Form.Label>New Album Title</Form.Label>
               <Form.Control
@@ -131,9 +130,9 @@ const Album = () => {
         </div>
       )}
 
-      {Link && (
+      {linkCopy && (
         <p className="mt-3 text-muted font-weight-light">
-          {Link}
+          {linkCopy}
           <Button className="btn btn-dark btn-sm ml-3" onClick={setCopy}>
             {copy ? "Copied " : "Copy Link "}
           </Button>
@@ -142,11 +141,11 @@ const Album = () => {
       <UploadAlbumImage albumId={albumId} />
       <AlbumsImages
         images={images}
-        chooseOurImage={chooseOurImage}
+        PickedImage={PickedImage}
         setChooseImg={setChooseImg}
       />
       {chooseImg && (
-        <ImageLightBox chooseImg={chooseImg} setChooseImg={setChooseImg} />
+        <ImageBox chooseImg={chooseImg} setChooseImg={setChooseImg} />
       )}
     </>
   );

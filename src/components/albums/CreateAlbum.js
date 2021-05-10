@@ -21,7 +21,6 @@ const CreateAlbum = () => {
     if (title.length < 2) {
       return;
     }
-
     setError(false);
     setLoading(true);
 

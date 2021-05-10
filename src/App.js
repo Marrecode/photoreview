@@ -19,6 +19,7 @@ import Album from "./components/albums/Album";
 import EditAlbum from "./components/albums/EditAlbum";
 import LikedImages from "./components/albums/LikedImages";
 import ReviewAlbum from "./components/albums/ReviewAlbum";
+import ReviewDone from "./components/albums/ReviewDone";
 
 function App() {
   const { images } = useImages();
@@ -63,6 +64,10 @@ function App() {
 
                 <Route path="/ReviewAlbum/:albumId">
                   <ReviewAlbum />
+                </Route>
+
+                <Route path="/reviewdone">
+                  <ReviewDone />
                 </Route>
 
                 <Route path="/login">
